@@ -52,8 +52,23 @@ build_project()
     with open(os.path.join(src_dir, "main.cpp"), "w") as f:
         f.write("""#include <iostream>
 #include<ranges>
+#include<string>
+#include<utility>
+#include<fstream>
+#include<vector>
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    std::vector<std::string> lines; 
+    std::string line;
+    std::ifstream file("../input.txt");
+    if (file.is_open()) {
+        while (std::getline(file, line)) {
+            lines.push_back(std::move(line));
+        }
+        file.close();
+    } else {
+        std::cout<< "file could not be opened"<<std::endl;
+    }
+
     return 0;
 }
         """)
